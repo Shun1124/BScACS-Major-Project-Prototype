@@ -124,7 +124,10 @@ npm run start-electron
 
 This will use `concurrently` to run both the Electron frontend and the C++ backend in parallel. It open an Electron window and start monitoring registry keys. The GUI will display log information, and alerts will be sent if critical changes are detected.
 
-### Step 2: Set Email and Phone Number (Optional)
+### Step 2: Modify the Monitored Keys (Optional)
+Customization to which registry keys the project monitors can be modified by modifying the `monitored_keys.json` file located in the `../Backend/Prototype` folder. In this file, the registry keys can be added or removed by specifying the key paths and whether they should be marked as critical or non-critical. After making these changes, rebuild the project to apply the updates.
+
+### Step 3: Set Email and Phone Number (Optional)
 1. Enter your email and phone number in the Electron GUI
 2. Click **Save Settings** to update your preferences.
 Once saved, alerts will be sent via SMS and email when critical registry key changes occur.
@@ -152,8 +155,6 @@ Here are a few test cases to verify the project works as expected:
 2. Change the **CursorBlinkRate** key value.
 3. After detection, the rollback should revert the key to its original value within five seconds.
 4. Verify the rollback by checking the **CursorBlinkRate** setting on the system.
-
-To test other registry keys as critical keys, modify `monitored_keys.json` file inside the `../Backend/Prototype` folder. Set the desired key's value and path. After making these changes, rebuild the project before running it to apply the updates.
 
 ## Code Structures
 ### Frontend (Electron Dashboard)
