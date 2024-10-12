@@ -28,9 +28,9 @@ struct RegistryKey {
 
 // Define a list of registry keys to monitor
 const RegistryKey monitoredKeys[] = {
-    {HKEY_CURRENT_USER, "Control Panel\\Desktop", "Wallpaper", false},  // Non-critical: Monitor Wallpaper changes
+    {HKEY_CURRENT_USER, "Control Panel\\Desktop", "Wallpaper", true},  // Non-critical: Monitor Wallpaper changes
     {HKEY_CURRENT_USER, "Control Panel\\Mouse", "DoubleClickSpeed", false},  // Critical: Monitor Mouse double-click speed
-    {HKEY_CURRENT_USER, "Control Panel\\Keyboard", "KeyboardSpeed", true}  // Non-critical: Monitor Keyboard repeat rate
+    {HKEY_CURRENT_USER, "Control Panel\\Desktop", "CursorBlinkRate", false}  // Non-critical: Monitor Keyboard repeat rate
 };
 
 #endif 
