@@ -30,7 +30,7 @@ This project monitors Windows registry keys for changes, detects critical and no
 **AWS Account** (Optional): For sending email and SMS alerts through SES (Simple Email Service) and SNS (Simple Notification Service). 
 
 #### Libraries and Frameworks
-**Electron**: Used for the graphical user interface (GUI).
+**Electron**: Used for the graphical user interface (GUI).\
 **nlohmann-son**: Used for handling JSON operations in the dashboard implementation.
 
 **AWS SDK for JavaScript**: Used for sending emails and SMS via AWS SES and SNS.
