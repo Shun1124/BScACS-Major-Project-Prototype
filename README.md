@@ -198,7 +198,7 @@ To test other registry keys as critical keys, modify `monitored_keys.json` file 
 
 - **awsconfig.json**: Stores AWS credentials for SES and SNS integration.
 
--**monitored_keys.json**: Stores the details of the monitored keys. 
+- **monitored_keys.json**: Stores the details of the monitored registry keys, including whether they are marked as critical or non-critical.
 
 ## Installing vcpkg and curl
 ### Step 1: Install curl
