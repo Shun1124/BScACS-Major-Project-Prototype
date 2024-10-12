@@ -1,0 +1,17 @@
+{
+  "name": "your-electron-app",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "concurrently \"npm run start-electron\" \"npm run start-cpp\"",
+    "start-electron": "electron .",
+    "start-cpp": "node -e \"const path = require('path'); const { spawn } = require('child_process'); const fullPath = path.join(__dirname, '../Backend/Prototype/x64/Debug/Prototype.exe'); const options = { cwd: path.resolve(__dirname, '../Backend/Prototype'), env: Object.assign({}, process.env), shell: true }; console.log('Resolved path to C++ executable: ', fullPath); spawn(fullPath, [], options);\""
+  },
+  "devDependencies": {
+    "concurrently": "^7.0.0",
+    "electron": "^13.0.0"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.15"
+  }
+}

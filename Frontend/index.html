@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electron Dashboard</title>
+    <link rel="stylesheet" href="style.css"> <!-- Link to your external CSS file -->
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Windows Registry Monitor</h1>
+        </header>
+
+        <section>
+            <h2>Status: <span id="status">Waiting...</span></h2>
+        </section>
+
+        <section>
+            <!-- Log Area -->
+            <h2>Logs:</h2>
+            <textarea id="log-area" readonly></textarea>
+        </section>
+
+        <section id="alert-container">
+            <!-- Alerts for critical registry changes will appear here -->
+        </section>
+
+        <section>
+            <h2>Alert Settings:</h2>
+            <form id="alert-settings-form">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email"><br><br>
+
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number"><br><br>
+
+                <button id="save-settings-button" type="button">Save Settings</button>
+            </form>
+        </section>
+    </div>
+
+    <script src="app.js"></script> <!-- Link to your app.js script -->
+</body>
+</html>
