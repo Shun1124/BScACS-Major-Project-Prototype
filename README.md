@@ -86,7 +86,7 @@ npm install @aws-sdk/client-ses @aws-sdk/client-sns concurrently
 ```
 
 #### Step 8: Configure AWS Credentials
-Create a  `awsconfig.json` file in the `Backend` folder that contains access key information for a restricted IAM user with full access to SNS and SES. If you want to use your own AWS account instead, you can modify the existing `awsconfig.json` with your own credentials in the `Backend` directory with your own access information.
+Create a  `awsconfig.json` file in the `Backend` folder that contains access key information for a restricted IAM user with full access to SNS and SES. See the report for access key information. If you want to use your own AWS account instead, you can modify the existing `awsconfig.json` with your own credentials in the `Backend` directory with your own access information.
 ##### Inside the awsconfig.json file:
 ```
 {
