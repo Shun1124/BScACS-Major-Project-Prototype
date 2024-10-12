@@ -141,6 +141,8 @@ Here are a few test cases to verify the project works as expected:
 2. After the alert, the value should automatically rollback to its original state.
 3. Verify the rollback by checking the double-click speed setting on your system.
 
+To test other registry keys as critical keys, modify the `const RegistryKey monitoredKeys` list in `registry.h` file. Set the desired key's value to `true` to mark it as critical, and the others `false` to make them as non-critical. After making these changes, rebuild the project before running it to apply the updates.
+
 ## Code Structures
 ### Frontend (Electron Dashboard)
 - **index.html**: The primary entry point for the user interface. It contains the HTML structure and elements displayed to the user.
