@@ -48,7 +48,7 @@ This project monitors Windows registry keys for changes, detects critical and no
 #### Step 3: Clone the Repository
 Clone the project repository to your local machine, and `cd` to the cloned project folder:
 ```
-git clone https://github.com/your-repo/registry-monitoring-system.git
+git clone https://github.com/Shun1124/BScACS-Major-Project-Prototype.git
 cd BScACS-Major-Project-Prototype
 ```
 
