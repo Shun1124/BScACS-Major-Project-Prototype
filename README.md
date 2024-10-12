@@ -43,7 +43,7 @@ This project monitors Windows registry keys for changes, detects critical and no
 #### Step 2: Install Visual Studio 2022
 - [Download Visual Studio 2022] (https://visualstudio.microsoft.com/downloads/) and install it.
 - During installation, ensure you select **Desktop development with C++**.
-- Install **vcpkg** for dependency management [Installing vcpkg and curl] (#installing-vcpkg-and-curl).
+- Install **vcpkg** for dependency management [Installing vcpkg and curl](#installing-vcpkg-and-curl).
 
 #### Step 3: Clone the Repository
 Clone the project repository to your local machine, and `cd` to the cloned project folder:
@@ -59,10 +59,13 @@ Install the Node.js dependencies with the following commands:
 cd Frontend
 npm install
 ```
-##### Navigate the Backend directory
+If a vulnerability message appear, ignore or run the following:
 ```
-cd Backend
-npm install
+npm audit fix --force
+```
+To turn off the `npm fund` message, run the following command:
+```
+npm config set fund false
 ```
 
 #### Step 5: Install Electron Globally
@@ -114,7 +117,7 @@ Follow these steps to run the project:
 Start the entire project (Electron frontend + C++ backend) by running:
 ```
 cd Frontend
-npm start
+npm run start-electron
 ```
 
 This will use `concurrently` to run both the Electron frontend and the C++ backend in parallel. It open an Electron window and start monitoring registry keys. The GUI will display log information, and alerts will be sent if critical changes are detected.
