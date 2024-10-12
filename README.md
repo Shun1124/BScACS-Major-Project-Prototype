@@ -7,56 +7,86 @@ This project monitors Windows registry keys for changes, detects critical and no
 [Prerequisites](#prerequisites)\
 [Running the Project](#running-the-project)\
 [Testing the Project](#testing-the-project)\
-[Code Structures](#code-structures)
+[Code Structures](#code-structures)\
+[Installing vcpkg and curl](#installing-vcpkg-and-curl)
 
 ## Features
-**Real-Time Monitoring**: WRM monitors critical registry keys using `RegNotifyChangeKeyValue`. Detected changes are logged and processed immediately.\
-**Rollback System**:  Critical changes are reverted within 5 seconds using `RegSetValueEx`, ensuring system integrity is maintained.\
+**Real-Time Monitoring**: WRM monitors critical registry keys using `RegNotifyChangeKeyValue`. Detected changes are logged and processed immediately.
+
+**Rollback System**:  Critical changes are reverted within 5 seconds using `RegSetValueEx`, ensuring system integrity is maintained.
+
 **Customizable Alerts**: Alerts are sent to system administrators within 5 seconds of detecting critical changes, ensuring timely intervention.
 
 ## Prerequisites
 ### Tools and Technologies Required
 #### Windows System
-**Operating System**: Windows 10 or later (64-bit).\
-**Development Environment** Visual Studio 2022 (Community Edition is sufficient).\
-**Node.js**: v16.0.0 or higher\
-**AWS Account** (Optional): For sending email and SMS alerts through SES (Simple Email Service) and SNS (Simple Notification Service). (Optional)
+**Operating System**: Windows 10 or later (64-bit).
+
+**Development Environment** Visual Studio 2022 (Community Edition is sufficient).
+
+**Node.js**: v16.0.0 or higher.
+
+**AWS Account** (Optional): For sending email and SMS alerts through SES (Simple Email Service) and SNS (Simple Notification Service). 
 
 #### Libraries and Frameworks
-**Electron**: Used for the graphical user interface (GUI)\
-**AWS SDK for JavaScript**: Used for sending emails and SMS via AWS SES and SNS.\
-**Concurrently**: For running both the Electron frontend and the C++ backend simultaneously.\
+**Electron**: Used for the graphical user interface (GUI).
+
+**AWS SDK for JavaScript**: Used for sending emails and SMS via AWS SES and SNS.
+
+**Concurrently**: For running both the Electron frontend and the C++ backend simultaneously.
 
 ### Installation Instructions
 #### Step 1: Install Node.js
 - [Download and Install Node.js] (https://nodejs.org/en) (v16.0.0 or higher).
 - Verify installation by running `node -v` and `npm -v` in the terminal.
+
 #### Step 2: Install Visual Studio 2022
 - [Download Visual Studio 2022] (https://visualstudio.microsoft.com/downloads/) and install it.
 - During installation, ensure you select **Desktop development with C++**.
-- Install **vcpkg** for dependency management:
-    - Follow this [Installing vcpkg and curl](#installing-vcpkg-and-curl).
-    - Make sure `curl` is installed for fetching packages through vcpkg. Windows 10+ typically has it pre-installed. You can verify this by running `curl --version` in the terminal. 
+- Install **vcpkg** for dependency management [Installing vcpkg and curl] (#installing-vcpkg-and-curl).
 
-#### Step 3: Install Electron
+#### Step 3: Clone the Repository
+Clone the project repository to your local machine, and `cd` to the cloned project folder:
+```
+git clone https://github.com/your-repo/registry-monitoring-system.git
+cd BScACS-Major-Project-Prototype
+```
+
+#### Step 4: Node.js Dependencies
+Install the Node.js dependencies with the following commands:
+##### Navigate to the Frontend directory
+```
+cd Frontend
+npm install
+```
+##### Navigate the Backend directory
+```
+cd Backend
+npm install
+```
+
+#### Step 5: Install Electron Globally
 - Open a terminal and run:
 ```
 npm install -g electron
 ```
 
-#### Step 4: Set up AWS Services
+#### Step 6: Set up AWS Services (Optional)
+- Specific testing email and password is provided in the prototype report, therefore, this step is optional.
 - Signup for an AWS account and set up SES and SNS.
 - **SES**: Verify your email address (required by AWS SES to send emails).
 - **SNS**: Register and set up SMS service in the AWS console.
 
-#### Step 5: Install AWS SDK and Concurrently
-- In the project directory, install required dependencies by running: 
+#### Step 7: Install AWS SDK and Concurrently
+- In the project directory, install required dependencies by running:
+##### Navigate to the Frontend directory
 ```
+cd Frontend
 npm install @aws-sdk/client-ses @aws-sdk/client-sns concurrently
 ```
 
-#### Step 6: Configure AWS Credentials (Optional)
-The project comes with a pre-configured  `awsconfig.json` file that contains access key information for a restricted IAM user with full access to SNS and SES. If you want to use your own AWS account instead, you can modify the existing `awsconfig.json` with your own credentials in the project's root directory with your own access information.
+#### Step 8: Configure AWS Credentials (Optional)
+The project comes with a pre-configured  `awsconfig.json` file in the `Backend` folder that contains access key information for a restricted IAM user with full access to SNS and SES. If you want to use your own AWS account instead, you can modify the existing `awsconfig.json` with your own credentials in the `Backend` directory with your own access information.
 ```
 {
   "accessKeyId": "YOUR_ACCESS_KEY_ID",
@@ -65,6 +95,10 @@ The project comes with a pre-configured  `awsconfig.json` file that contains acc
 }
 ```
 - Ensure the file is placed in the directory where `sendEmail.js` and `sendSms.js` scripts reside.
+
+#### Step 9: Build the C++ Code
+- Open the solution file (`Prototype.sln`) in **Visual Studio 2022**.
+- Build the project in **Debug mode** for the `x64` platform.
 
 ### Configuration Settings
 **AWS Configuration**
@@ -75,31 +109,16 @@ The project comes with a pre-configured  `awsconfig.json` file that contains acc
 ## Running the Project
 Follow these steps to run the project:
 
-### Step 1: Clone the Repository 
-Clone the project repository to local machine, `cd` to the cloned project folder:
-```
-git clone https://github.com/your-repo/registry-monitoring-system.git
-cd BScACS-Major-Project-Prototype
-```
-
-### Step 2: Install Dependencies
-Install all required Node.js dependencies by running:
-```
-npm install
-```
-
-### Step 3: Build the C++ Code
-- Open the solution file (`Prototype.sln`) in **Visual Studio 2022**.
-- Build the project in **Debug mode** for the `x64` platform.
-
-### Step 4: Run the Project
+### Step 1: Start the Backend and Frontend
 Start the entire project (Electron frontend + C++ backend) by running:
 ```
+cd Frontend
 npm start
 ```
-This will open an Electron window and start monitoring registry keys. The GUI will display log information, and alerts will be sent if critical changes are detected.
 
-### Step 5: Set Email and Phone Number
+This will use `concurrently` to run both the Electron frontend and the C++ backend in parallel. It open an Electron window and start monitoring registry keys. The GUI will display log information, and alerts will be sent if critical changes are detected.
+
+### Step 2: Set Email and Phone Number (Optional)
 1. Enter your email and phone number in the Electron GUI
 2. Click **Save Settings** to update your preferences.
 Once saved, alerts will be sent via SMS and email when critical registry key changes occur.
@@ -120,7 +139,7 @@ Here are a few test cases to verify the project works as expected:
 ### Test Case 3: Rollback Functionality
 1. Change the **DoubleClickSpeed** key.
 2. After the alert, the value should automatically rollback to its original state.
-3. Verify the rollback by checking the double-click speed setting on the your system.
+3. Verify the rollback by checking the double-click speed setting on your system.
 
 ## Code Structures
 ### Frontend (Electron Dashboard)
@@ -135,7 +154,7 @@ Here are a few test cases to verify the project works as expected:
 ### Backend (C++ Monitoring System)
 - **main.cpp**: Starts the monitoring process, creates threads to monitor multiple registry keys, and initializes the user settings and alert systems.
 
-- **regsitryKey.h**: Defines the structure and attributes of the registry keys that will be monitored.
+- **registryKey.h**: Defines the structure and attributes of the registry keys that will be monitored.
 
 - **registryKeys.cpp**: Implements the logic for loading and accessing the registry keys being monitored.
 
@@ -163,6 +182,8 @@ Here are a few test cases to verify the project works as expected:
 
 - **userSettings.cpp**: Implements functions for handling user settings such as saving/loading preferences, managing email and phone inputs, and allowing dynamic changes during runtime.
 
+- **awsconfig.json**: Stores AWS credentials for SES and SNS integration.
+
 ## Installing vcpkg and curl
 ### Step 1: Install curl
 1. Check if **curl** is already installed by running the following in the command prompt:
@@ -172,37 +193,28 @@ curl --version
 If you see a version number, **curl** is already installed. If not, follow the steps below.
 
 2. For Windows 10 or Later:
-- **curl** is typically pre-instlaled. If it's missing, download the installer from (https://curl.se/windows/).
-- Extract the zip file and place the `curl.exe` file somewhere convenient (e.g., `C:\curl\`).
-3. Add curl to your **PATH**:
-- Right-click This **PC** or **Computer**, select **Properties**.
-- Click **Advanced system settings**, then click **Environment Variables**.
-- In the **System Variables** section, find **Path**, and click Edit.
-- Add the directory where you placed `curl.exe` (e.g., `C:\curl\`) to the PATH.
-- Open a new terminal window and run `curl --version` to ensure it's installed.
+- **curl** is typically pre-installed. If it's missing, download and install curl from (https://curl.se/windows/).
 
 ### Step 2: Install vcpkg
-1. **Clone vcpkg repository**: Open the command prompt (as Administrator) and run the following:
+1. **Clone vcpkg repository**:
+Open the command prompt (as Administrator) and run the following:
 ```
 git clone https://github.com/microsoft/vcpkg.git
 cd vcpkg
 ```
+
 2. **Bootstrap vcpkg**: After navigating to the `vcpkg` directory, run: 
 ```
 .\bootstrap-vcpkg.bat
 ```
-3. **Add vcpkg to PATH** (Optional): You can add **vcpkg** to your system PATH for easier access:
-- Follow the same steps as for **curl** above.
-- Add the full path to the **vcpkd** executable (e.g., `C:\path\to\vcpkg`).
 
-4. **Install Required Libraries**: Now that **vcpkg** is installed, you can use it to install necessary libraries:
+3. **Install Required Libraries**: 
 ```
 .\vcpkg install curl
 ```
-This ensure that **curl** and any other required dependencies are managed through **vcpkg**.
 
 5. **Integrate vcpkg with Visual Studio**: To integrate **vcpkg** into Visual Studio 2022, run:
 ```
 .\vcpkg integrate install
 ```
-Now, **vcpkg** and **curl** are installed, and you can proceed building the project using Visual Studio as described in the earlier steps.
+Now, the project is ready to run.
