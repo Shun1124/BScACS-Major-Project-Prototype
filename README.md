@@ -76,10 +76,10 @@ The project comes with a pre-configured  `awsconfig.json` file that contains acc
 Follow these steps to run the project:
 
 ### Step 1: Clone the Repository 
-Clone the project repository to local machine:
+Clone the project repository to local machine, `cd` to the cloned project folder:
 ```
 git clone https://github.com/your-repo/registry-monitoring-system.git
-cd registry-monitoring-system
+cd BScACS-Major-Project-Prototype
 ```
 
 ### Step 2: Install Dependencies
