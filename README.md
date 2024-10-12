@@ -8,7 +8,8 @@ This project monitors Windows registry keys for changes, detects critical and no
 [Running the Project](#running-the-project)\
 [Testing the Project](#testing-the-project)\
 [Code Structures](#code-structures)\
-[Installing vcpkg and curl](#installing-vcpkg-and-curl)
+[Installing vcpkg and curl](#installing-vcpkg-and-curl)\
+[Intalling nlohmann-json](#installing-nlohmann-json)
 
 ## Features
 **Real-Time Monitoring**: WRM monitors critical registry keys using `RegNotifyChangeKeyValue`. Detected changes are logged and processed immediately.
@@ -30,6 +31,7 @@ This project monitors Windows registry keys for changes, detects critical and no
 
 #### Libraries and Frameworks
 **Electron**: Used for the graphical user interface (GUI).
+**nlohmann-son**: Used for handling JSON operations in the dashboard implementation.
 
 **AWS SDK for JavaScript**: Used for sending emails and SMS via AWS SES and SNS.
 
@@ -131,21 +133,27 @@ Once saved, alerts will be sent via SMS and email when critical registry key cha
 Here are a few test cases to verify the project works as expected:
 
 ### Test Case 1: Registry Key Change Detection
-1. Modify the wallpaper on the system (this is monitored by default).
-2. The console and the Electron log should display the change as non-critical.
-3. Change the **DoubleClickSpeed** (a critical registry key).
-4. The console should display `[CRITICAL]` and roll back the change automatically.
+1. Start the application and navigate to the dashboard.
+2. Ensure the checkboxes for all keys are unchecked (default state).
+3. Modify the **MouseScrollSpeed** registry key.
+4. The change should be logged in the dashboard without triggering a rollback, as the key is not marked as critical.
+5. Check the box for **MouseScrollSpeed** to mark it as critical.
+6. Modify the **MouseScrollSpeed key again.
+7. The change should now be detected as critical, trigger a rollback, and revert to its original value.
 
 ### Test Case 2: Email and SMS Alerts
-1. Modify the **DoubleClickSpeed** key with email and phone settings saved.
-2. You should receive an email and SMS alert indicating a critical change.
+1. Check the **DoubleClickSpeed** checkbox to mark it as critical.
+2. Modify the **DoubleClickSpeed** registry key.
+3. The dashboard should display a critical change, and the rollback should occur automatically.
+4. If email and phone settings are configured, an email and SMS alert should be delivered indicating that a critical change occurred.
 
 ### Test Case 3: Rollback Functionality
-1. Change the **DoubleClickSpeed** key.
-2. After the alert, the value should automatically rollback to its original state.
-3. Verify the rollback by checking the double-click speed setting on your system.
+1. Change the **CursorBlinkRate** checkbox to mark it as critical.
+2. Change the **CursorBlinkRate** key value.
+3. After detection, the rollback should revert the key to its original value within five seconds.
+4. Verify the rollback by checking the **CursorBlinkRate** setting on the system.
 
-To test other registry keys as critical keys, modify the `const RegistryKey monitoredKeys` list in `registry.h` file. Set the desired key's value to `true` to mark it as critical, and the others `false` to make them as non-critical. After making these changes, rebuild the project before running it to apply the updates.
+To test other registry keys as critical keys, modify `monitored_keys.json` file inside the `../Backend/Prototype` folder. Set the desired key's value and path. After making these changes, rebuild the project before running it to apply the updates.
 
 ## Code Structures
 ### Frontend (Electron Dashboard)
@@ -190,6 +198,8 @@ To test other registry keys as critical keys, modify the `const RegistryKey moni
 
 - **awsconfig.json**: Stores AWS credentials for SES and SNS integration.
 
+-**monitored_keys.json**: Stores the details of the monitored keys. 
+
 ## Installing vcpkg and curl
 ### Step 1: Install curl
 1. Check if **curl** is already installed by running the following in the command prompt:
@@ -223,4 +233,17 @@ cd vcpkg
 ```
 .\vcpkg integrate install
 ```
+
+## Installing nlohmann-json
+### Step 1: Install nlohmann/json using vcpkg
+1. Open command prompt and navigate to the folder where `vcpkg.exe` is installed.
+2. Run the following command to install the library:
+```
+.\vcpkg install nlohmann-json
+```
+3. Once installed, integrate the library with Visual studio:
+```
+.\vcpkg integrarte install
+```
+
 Now, the project is ready to run.
