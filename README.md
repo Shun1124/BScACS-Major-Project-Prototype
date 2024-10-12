@@ -31,7 +31,7 @@ This project monitors Windows registry keys for changes, detects critical and no
 
 #### Libraries and Frameworks
 **Electron**: Used for the graphical user interface (GUI).\
-**nlohmann-son**: Used for handling JSON operations in the dashboard implementation.
+**nlohmann-son**: Used for handling JSON operations in the dashboard implementation. (https://github.com/nlohmann/json)
 
 **AWS SDK for JavaScript**: Used for sending emails and SMS via AWS SES and SNS.
 
